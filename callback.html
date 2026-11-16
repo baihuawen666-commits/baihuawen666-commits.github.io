@@ -8,10 +8,22 @@
   <h2>授权回调</h2>
   <p>code：<code id="code"></code></p>
   <p>state：<code id="state"></code></p>
+  <p id="jump"></p>
   <script>
     var p = new URLSearchParams(location.search);
     document.getElementById('code').textContent = p.get('code') || '(没有拿到 code)';
     document.getElementById('state').textContent = p.get('state') || '(无)';
+
+    // 179 私有化测试环境 SSO 调试结果页固定前缀（仅测试环境）
+    var RESULT_BASE = 'https://14.103.230.179:32671/userpool/36f958e2-7c51-44a7-b25e-8cf1bd29b40c/login/sso_debug/results';
+    var resultId = p.get('debug_result_id');
+    if (resultId) {
+      var target = RESULT_BASE + '?debug_result_id=' + encodeURIComponent(resultId);
+      document.getElementById('jump').innerHTML =
+        '检测到 SSO 调试结果，1 秒后自动打开结果页；如未跳转请' +
+        '<a href="' + target + '">点这里手动打开</a>';
+      setTimeout(function () { location.replace(target); }, 1000);
+    }
   </script>
 </body>
 </html>
