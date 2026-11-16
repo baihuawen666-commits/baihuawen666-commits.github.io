@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>企微授权回调</title>
+</head>
+<body>
+  <h2>授权回调</h2>
+  <p>code：<code id="code"></code></p>
+  <p>state：<code id="state"></code></p>
+  <script>
+    var p = new URLSearchParams(location.search);
+    document.getElementById('code').textContent = p.get('code') || '(没有拿到 code)';
+    document.getElementById('state').textContent = p.get('state') || '(无)';
+  </script>
+</body>
+</html>
